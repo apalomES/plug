@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  powersimdata:
+    container_name: scenario_client
+    hostname: scenario_client
+    environment: 
+      - BE_SERVER_USER=${BE_SERVER_USER}
+      - BE_SERVER_ADDRESS=scenario_server
+    image: powersimdata:latest
+    networks:
+      - cemnet
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - cemdata:/mnt/bes/pcm
+      - ~/.ssh:/root/.ssh
+      - $PWD/client_files:/root/ScenarioData
+  scenario_server:
+    container_name: scenario_server
+    hostname: scenario_server
+    image: linuxserver/openssh-server
+    ports:
+      - 22:2222
+    networks:
+      - cemnet
+    tty: true
+    volumes:
+      - ~/.ssh/id_ed25519.pub:/pub_key/id_ed25519.pub:ro # path to ssh public key
+      - $PWD/server_files:/mnt/bes/pcm
+    environment:
+      - USER_NAME=${BE_SERVER_USER}
+      - PUBLIC_KEY_FILE=/pub_key/id_ed25519.pub # ssh public key in container
+      - SUDO_ACCESS=false
+      - PASSWORD_ACCESS=false
+    restart: "unless-stopped"
+  reisejl:
+    image: reisejl:latest
+  networks:
+      - gateway
+    ports:
+      - "80:5000"
+    volumes:
+      - cemdata:/mnt/bes/pcm
+networks:
+  cemnet:
+volumes:
+  cemdata:
