@@ -20,29 +20,31 @@ def test_scenario_88_analysis():
     solar = scenario.state.get_solar()
     # get wind profile
     wind = scenario.state.get_wind()
-
     # get generation profile for generators
     pg = scenario.state.get_pg()
-    # get generation profile for storage units (if present in scenario)
-    pg_storage = scenario.state.get_storage_pg()
-    # get energy state of charge of storage units (if present in scenario)
-    e_storage = scenario.state.get_storage_e()
     # get power flow profile for AC lines
     pf_ac = scenario.state.get_pf()
-    # get power flow profile for DC lines
-    pf_dc = scenario.state.get_dcline_pf()
     # get locational marginal price profile for each bus
     lmp = scenario.state.get_lmp()
     # get congestion (upper power flow limit) profile for AC lines
     congu = scenario.state.get_congu()
     # get congestion (lower power flow limit) profile for AC lines
     congl = scenario.state.get_congl()
-    # get time averaged congestion (lower and power flow limits) for AC lines
-    avg_cong = scenario.state.get_averaged_cong()
-    # get load shed profile for each load bus
-    load_shed = scenario.state.get_load_shed()
 
-def create_and_upload_Texas_scenario():
+    # missing for scenario 88
+
+    # # get power flow profile for DC lines
+    # pf_dc = scenario.state.get_dcline_pf()
+    # # get generation profile for storage units (if present in scenario)
+    # pg_storage = scenario.state.get_storage_pg()
+    # # get energy state of charge of storage units (if present in scenario)
+    # e_storage = scenario.state.get_storage_e()
+    # # get load shed profile for each load bus
+    # load_shed = scenario.state.get_load_shed()
+    # # get time averaged congestion (lower and power flow limits) for AC lines
+    # avg_cong = scenario.state.get_averaged_cong()
+
+def test_create_and_upload_Texas_scenario():
     scenario = Scenario('')
 
     scenario.state.set_builder(["Texas"])
