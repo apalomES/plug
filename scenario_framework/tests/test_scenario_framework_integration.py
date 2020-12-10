@@ -25,9 +25,9 @@ def test_scenario_88_analysis():
     # get generation profile for generators
     pg = scenario.state.get_pg()
     # get power flow profile for AC lines
-    pf_ac = scenario.state.get_pf()
+    # pf_ac = scenario.state.get_pf()
     # get locational marginal price profile for each bus
-    lmp = scenario.state.get_lmp()
+    # lmp = scenario.state.get_lmp()
     # get congestion (upper power flow limit) profile for AC lines
     congu = scenario.state.get_congu()
     # get congestion (lower power flow limit) profile for AC lines
