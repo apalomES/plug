@@ -17,10 +17,12 @@ services:
       - cemdata:/mnt/bes/pcm
       - ~/.ssh:/root/.ssh
       - $PWD/client_files:/root/ScenarioData
+      - $PWD/tests:/app/tests
   scenario_server:
     container_name: scenario_server
     hostname: scenario_server
-    image: linuxserver/openssh-server
+    # image: linuxserver/openssh-server
+    image: scenario_server:latest
     ports:
       - 22:2222
     networks:
@@ -43,6 +45,29 @@ services:
   #     - "80:5000"
   #   volumes:
   #     - cemdata:/mnt/bes/pcm
+  db:
+    container_name: scenario_db
+    hostname: scenario_db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
+    networks:
+      - cemnet
+    volumes:
+        - $PWD/sql:/docker-entrypoint-initdb.d
+
+  adminer:
+    container_name: scenario_db_adminer
+    hostname: scenario_db_adminer
+    image: adminer
+    networks:
+      - cemnet
+    restart: always
+    ports:
+      - 8080:8080
 networks:
   cemnet:
 volumes:

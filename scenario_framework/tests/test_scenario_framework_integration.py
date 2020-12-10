@@ -1,6 +1,8 @@
 from powersimdata.scenario.scenario import Scenario
+import uuid
 
 def test_scenario_88_analysis():
+    # 1712?
     scenario = Scenario('88')
     print(scenario.state.name)
 
@@ -48,7 +50,7 @@ def test_create_and_upload_Texas_scenario():
     scenario = Scenario('')
 
     scenario.state.set_builder(["Texas"])
-    scenario.state.builder.set_name("test", "dummy")
+    scenario.state.builder.set_name("test" + '_' + str(uuid.uuid1()), "dummy" + '_' + str(uuid.uuid1()))
     scenario.state.builder.set_time("2016-08-01 00:00:00","2016-08-31 23:00:00","24H")
 
     scenario.state.builder.set_base_profile("demand", "ercot")
@@ -66,3 +68,11 @@ def test_create_and_upload_Texas_scenario():
     
     scenario.state.print_scenario_info()
     scenario.state.create_scenario()
+    scenario.state.print_scenario_status()
+    scenario.print_scenario_info()
+    scenario.state.prepare_simulation_input()
+    # launch simulation
+    process_run = scenario.state.launch_simulation()
+
+    # Get simulation status
+    scenario.state.print_scenario_status()
