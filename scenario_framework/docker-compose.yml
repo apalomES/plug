@@ -23,8 +23,6 @@ services:
     hostname: scenario_server
     # image: linuxserver/openssh-server
     image: scenario_server:latest
-    ports:
-      - 22:2222
     networks:
       - cemnet
     tty: true
