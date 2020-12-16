@@ -1,19 +1,14 @@
 from powersimdata.scenario.scenario import Scenario
 import uuid
 
-def test_scenario_88_analysis():
-    # 1712?
-    scenario = Scenario('88')
-    print(scenario.state.name)
-
+def test_scenario_1712_analysis():
+    scenario = Scenario('1712')
     # print scenario information
     scenario.state.print_scenario_info()
-
     # get change table
     ct = scenario.state.get_ct()
     # get grid
     grid = scenario.state.get_grid()
-
     # get demand profile
     demand = scenario.state.get_demand()
     # get hydro profile
@@ -25,26 +20,25 @@ def test_scenario_88_analysis():
     # get generation profile for generators
     pg = scenario.state.get_pg()
     # get power flow profile for AC lines
-    # pf_ac = scenario.state.get_pf()
+    pf_ac = scenario.state.get_pf()
     # get locational marginal price profile for each bus
-    # lmp = scenario.state.get_lmp()
+    lmp = scenario.state.get_lmp()
     # get congestion (upper power flow limit) profile for AC lines
     congu = scenario.state.get_congu()
     # get congestion (lower power flow limit) profile for AC lines
     congl = scenario.state.get_congl()
+    # get time averaged congestion (lower and power flow limits) for AC lines
+    avg_cong = scenario.state.get_averaged_cong()
+    # get generation profile for storage units (if present in scenario)
+    pg_storage = scenario.state.get_storage_pg()
+    # get energy state of charge of storage units (if present in scenario)
+    e_storage = scenario.state.get_storage_e()
 
-    # missing for scenario 88
-
-    # # get power flow profile for DC lines
-    # pf_dc = scenario.state.get_dcline_pf()
-    # # get generation profile for storage units (if present in scenario)
-    # pg_storage = scenario.state.get_storage_pg()
-    # # get energy state of charge of storage units (if present in scenario)
-    # e_storage = scenario.state.get_storage_e()
+    # missing for scenario 1712
     # # get load shed profile for each load bus
     # load_shed = scenario.state.get_load_shed()
-    # # get time averaged congestion (lower and power flow limits) for AC lines
-    # avg_cong = scenario.state.get_averaged_cong()
+    # # get power flow profile for DC lines
+    # pf_dc = scenario.state.get_dcline_pf()
 
 def test_create_and_upload_Texas_scenario():
     scenario = Scenario('')
