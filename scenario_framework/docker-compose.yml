@@ -35,14 +35,15 @@ services:
       - SUDO_ACCESS=false
       - PASSWORD_ACCESS=false
     restart: "unless-stopped"
-  # reisejl:
-  #   image: reisejl:latest
-  #   networks:
-  #     - cemnet
-  #   ports:
-  #     - "80:5000"
-  #   volumes:
-  #     - cemdata:/mnt/bes/pcm
+  reisejl:
+    image: reisejl:latest
+    networks:
+      - cemnet
+    ports:
+      - "80:5000"
+    volumes:
+      - cemdata:/mnt/bes/pcm
+      - $PWD/GUROBI.LIC:/usr/share/gurobi_license
   db:
     container_name: scenario_db
     hostname: scenario_db
