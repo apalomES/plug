@@ -62,11 +62,11 @@ def test_scenario_1712_regression():
     # runtime: 0:01
     # infeasibilities: 
 
-    # The change table for scenario 1712 is:
-    ct = {'new_bus': [{'lat': 30, 'lon': -95, 'zone_id': 308, 'Pd': 0, 'baseKV': 230}],
-    'storage': {3008161: 100},
-    'new_plant': [{'type': 'wind','bus_id': 3008161,'Pmax': 400,'Pmin': 0,'plant_id_neighbor': 13042}],
-    'new_branch': [{'from_bus_id': 3008160, 'to_bus_id': 3008161,'capacity': 300}]}
+    # # The change table for scenario 1712 is:
+    # ct = {'new_bus': [{'lat': 30, 'lon': -95, 'zone_id': 308, 'Pd': 0, 'baseKV': 230}],
+    # 'storage': {3008161: 100},
+    # 'new_plant': [{'type': 'wind','bus_id': 3008161,'Pmax': 400,'Pmin': 0}],
+    # 'new_branch': [{'from_bus_id': 3008160, 'to_bus_id': 3008161,'capacity': 300}]}
 
     scenario = Scenario('')
     scenario.state.set_builder(["Texas"])
@@ -79,27 +79,44 @@ def test_scenario_1712_regression():
     scenario.state.builder.set_base_profile("solar", "v4.1")
     scenario.state.builder.set_base_profile("wind", "v5.1")
 
-    scenario.state.builder.change_table.add_bus(ct['new_bus'])
-    scenario.state.builder.change_table.add_plant(ct['new_plant'])
-    scenario.state.builder.change_table.add_storage_capacity(ct['storage'])
-    scenario.state.builder.change_table.add_branch(ct['new_branch'])
+    # scenario.state.builder.change_table.add_bus(ct['new_bus'])
+    # scenario.state.builder.change_table.add_plant(ct['new_plant'])
+    # scenario.state.builder.change_table.add_storage_capacity(ct['storage'])
+    # scenario.state.builder.change_table.add_branch(ct['new_branch'])
+
+    new_bus_id = scenario.state.get_grid().bus.index.max() + 1
+    scenario.state.builder.change_table.add_bus(
+        [{"lat": 30, "lon": -95, "zone_id": 308}]
+    )
+    scenario.state.builder.change_table.add_storage_capacity(
+        bus_id={new_bus_id: 100}
+    )
+    scenario.state.builder.change_table.add_plant(
+        [{"type": "wind", "bus_id": new_bus_id, "Pmax": 400}]
+    )
+    scenario.state.builder.change_table.add_branch(
+        [{"from_bus_id": (new_bus_id - 1), "to_bus_id": new_bus_id, "capacity": 300}]
+    )
 
     # scenario.state.builder.change_table.scale_renewable_stubs()
     
+    earlier_scenario = Scenario('1712')
+
+    # scenario.state.builder.change_table.ct = earlier_scenario.state.get_ct()
+
     scenario.state.print_scenario_info()
     scenario.state.create_scenario()
     scenario.state.print_scenario_status()
     scenario.print_scenario_info()
     scenario.state.prepare_simulation_input()
 
-    earlier_scenario = Scenario('1712')
-
-    earlier_ct = earlier_scenario.state.get_ct()
-    new_ct = scenario.state.get_ct()
-    assert(earlier_ct == new_ct)
+    # earlier_ct = earlier_scenario.state.get_ct()
+    # new_ct = scenario.state.get_ct()
+    # assert(earlier_ct == new_ct)
 
     previous_grid = earlier_scenario.state.get_grid()
     new_grid = scenario.state.get_grid()
+    previous_grid == new_grid
     assert(previous_grid == new_grid)
 
 def test_create_and_upload_Texas_scenario():
@@ -117,6 +134,14 @@ def test_create_and_upload_Texas_scenario():
     scenario.state.builder.change_table.scale_plant_capacity("solar", zone_name={"Far West": 5, 'West': 2.5})
     scenario.state.builder.change_table.scale_plant_capacity("wind", zone_name={"South": 1.5, "North Central": 2})
     scenario.state.builder.change_table.scale_branch_capacity(zone_name={"South": 2, "North Central": 2})
+
+    new_bus_id = scenario.state.get_grid().bus.index.max() + 1
+    scenario.state.builder.change_table.add_bus([{"lat": 30, "lon": -95, "zone_id": 308}])
+    scenario.state.builder.change_table.add_storage_capacity(bus_id={new_bus_id: 100})
+    scenario.state.builder.change_table.add_plant([{"type": "wind", "bus_id": new_bus_id, "Pmax": 400}])
+    scenario.state.builder.change_table.add_branch([{"from_bus_id": (new_bus_id - 1),
+     "to_bus_id": new_bus_id, "capacity": 300}]
+    )
 
     ct = scenario.state.get_ct()
 
