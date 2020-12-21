@@ -79,10 +79,6 @@ def test_scenario_1712_regression():
     scenario.state.builder.set_base_profile("solar", "v4.1")
     scenario.state.builder.set_base_profile("wind", "v5.1")
 
-    # scenario.state.builder.change_table.add_bus(ct['new_bus'])
-    # scenario.state.builder.change_table.add_plant(ct['new_plant'])
-    # scenario.state.builder.change_table.add_storage_capacity(ct['storage'])
-    # scenario.state.builder.change_table.add_branch(ct['new_branch'])
 
     new_bus_id = scenario.state.get_grid().bus.index.max() + 1
     scenario.state.builder.change_table.add_bus(
@@ -97,12 +93,8 @@ def test_scenario_1712_regression():
     scenario.state.builder.change_table.add_branch(
         [{"from_bus_id": (new_bus_id - 1), "to_bus_id": new_bus_id, "capacity": 300}]
     )
-
-    # scenario.state.builder.change_table.scale_renewable_stubs()
     
     earlier_scenario = Scenario('1712')
-
-    # scenario.state.builder.change_table.ct = earlier_scenario.state.get_ct()
 
     scenario.state.print_scenario_info()
     scenario.state.create_scenario()
@@ -110,9 +102,9 @@ def test_scenario_1712_regression():
     scenario.print_scenario_info()
     scenario.state.prepare_simulation_input()
 
-    # earlier_ct = earlier_scenario.state.get_ct()
-    # new_ct = scenario.state.get_ct()
-    # assert(earlier_ct == new_ct)
+    earlier_ct = earlier_scenario.state.get_ct()
+    new_ct = scenario.state.get_ct()
+    assert(earlier_ct == new_ct)
 
     previous_grid = earlier_scenario.state.get_grid()
     new_grid = scenario.state.get_grid()
