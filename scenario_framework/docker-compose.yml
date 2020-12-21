@@ -21,7 +21,6 @@ services:
   scenario_server:
     container_name: scenario_server
     hostname: scenario_server
-    # image: linuxserver/openssh-server
     image: scenario_server:latest
     networks:
       - cemnet
@@ -44,29 +43,7 @@ services:
     volumes:
       - cemdata:/mnt/bes/pcm
       - $PWD/GUROBI.LIC:/usr/share/gurobi_license
-  db:
-    container_name: scenario_db
-    hostname: scenario_db
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: example
-    ports:
-      - 5432:5432
-    networks:
-      - cemnet
-    volumes:
-        - $PWD/sql:/docker-entrypoint-initdb.d
 
-  adminer:
-    container_name: scenario_db_adminer
-    hostname: scenario_db_adminer
-    image: adminer
-    networks:
-      - cemnet
-    restart: always
-    ports:
-      - 8080:8080
 networks:
   cemnet:
 volumes:
