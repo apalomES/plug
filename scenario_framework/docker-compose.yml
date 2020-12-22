@@ -4,6 +4,8 @@ services:
   powersimdata:
     container_name: scenario_client
     hostname: scenario_client
+    build:
+      context: ../../PowerSimData
     environment: 
       - BE_SERVER_USER=${BE_SERVER_USER}
       - BE_SERVER_ADDRESS=scenario_server
@@ -21,6 +23,8 @@ services:
   scenario_server:
     container_name: scenario_server
     hostname: scenario_server
+    build:
+      context: .
     image: scenario_server:latest
     networks:
       - cemnet
@@ -35,6 +39,8 @@ services:
       - PASSWORD_ACCESS=false
     restart: "unless-stopped"
   reisejl:
+    build:
+      context: ../../REISE.jl
     image: reisejl:latest
     networks:
       - cemnet
