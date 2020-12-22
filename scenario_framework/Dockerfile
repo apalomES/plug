@@ -1,4 +1,4 @@
 FROM linuxserver/openssh-server
 
 RUN apk update
-RUN apk add awk
+RUN apk add gawk
