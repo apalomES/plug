@@ -1,6 +1,9 @@
 from powersimdata.scenario.scenario import Scenario
 import uuid
+import pytest
 
+@pytest.mark.integration
+@pytest.mark.ssh
 def test_scenario_1712_analysis():
     scenario = Scenario("1712")
     # print scenario information
@@ -41,6 +44,8 @@ def test_scenario_1712_analysis():
     # pf_dc = scenario.state.get_dcline_pf()
 
 
+@pytest.mark.integration
+@pytest.mark.ssh
 def test_create_base_grid_Texas_scenario():
     scenario = Scenario("")
 
@@ -67,6 +72,8 @@ def test_create_base_grid_Texas_scenario():
     scenario.state.print_scenario_status()
 
 
+@pytest.mark.integration
+@pytest.mark.ssh
 def test_create_and_upload_Texas_scenario():
     scenario = Scenario("")
 
