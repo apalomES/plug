@@ -1,6 +1,17 @@
 from powersimdata.scenario.scenario import Scenario
 import uuid
 import pytest
+import os
+
+def test_scenario_server_container_up():
+    hostname = "scenario_server"
+    response = os.system("ping -c 1 " + hostname)
+    assert response == 0
+
+def test_reise_jl_container_up():
+    hostname = "reisejl"
+    response = os.system("ping -c 1 " + hostname)
+    assert response == 0
 
 @pytest.mark.integration
 @pytest.mark.ssh
