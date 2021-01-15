@@ -2,8 +2,8 @@ name: Integration
 
 on:
   push:
-    branches:
-      - main
+    # branches:
+    #   - main
   pull_request:
     branches:
       - main
@@ -40,3 +40,14 @@ jobs:
 
       - run: docker build . -t reisejl:latest
         working-directory: REISE.jl
+
+      - name: Start containers
+        run: |
+          pwd
+          ls -la
+          docker-compose up -d
+          sleep 10
+          docker ps -a
+        working-directory: plug/scenario_framework
+
+      - run: docker exec scenario_client bash -c 'pytest -vv'
