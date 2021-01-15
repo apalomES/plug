@@ -38,19 +38,19 @@ services:
       - SUDO_ACCESS=false
       - PASSWORD_ACCESS=false
     restart: "unless-stopped"
-  reisejl:
-    container_name: reisejl
-    hostname: reisejl
-    build:
-      context: ../../REISE.jl
-    image: reisejl:latest
-    networks:
-      - cemnet
-    ports:
-      - "80:5000"
-    volumes:
-      - cemdata:/mnt/bes/pcm
-      - $PWD/GUROBI.LIC:/usr/share/gurobi_license
+  # reisejl:
+  #   container_name: reisejl
+  #   hostname: reisejl
+  #   build:
+  #     context: ../../REISE.jl
+  #   image: reisejl:latest
+  #   networks:
+  #     - cemnet
+  #   ports:
+  #     - "80:5000"
+  #   volumes:
+  #     - cemdata:/mnt/bes/pcm
+  #     - $PWD/GUROBI.LIC:/usr/share/gurobi_license
 
 networks:
   cemnet:
