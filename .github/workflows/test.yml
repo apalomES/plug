@@ -50,4 +50,4 @@ jobs:
           docker ps -a
         working-directory: plug/scenario_framework
 
-      - run: docker exec scenario_client bash -c 'pytest -vv'
+      - run: docker exec scenario_client bash -c 'pytest -m "not integration"'
