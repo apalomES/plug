@@ -7,7 +7,7 @@ services:
     build:
       context: ../../PowerSimData
     environment: 
-      - BE_SERVER_USER=${BE_SERVER_USER}
+      - BE_SERVER_USER=octocat
       - BE_SERVER_ADDRESS=scenario_server
       - BE_SERVER_SSH_PORT=2222
     image: powersimdata:latest
