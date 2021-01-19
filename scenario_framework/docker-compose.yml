@@ -18,7 +18,6 @@ services:
     volumes:
       - cemdata:/mnt/bes/pcm
       - $PWD/ssh_github_action/:/root/.ssh
-      - $PWD/client_files:/root/ScenarioData
       - $PWD/tests:/app/tests
   scenario_server:
     container_name: scenario_server
@@ -31,7 +30,6 @@ services:
     tty: true
     volumes:
       - $PWD/ssh_github_action/id_rsa.pub:/pub_key/id_rsa.pub:ro # path to ssh public key
-      - $PWD/server_files:/mnt/bes/pcm
     environment:
       - USER_NAME=${BE_SERVER_USER}
       - PUBLIC_KEY_FILE=/pub_key/id_rsa.pub # ssh public key in container
