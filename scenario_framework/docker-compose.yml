@@ -7,7 +7,7 @@ services:
     build:
       context: ../../PowerSimData
     environment: 
-      - BE_SERVER_USER=octocat
+      - BE_SERVER_USER=${BE_SERVER_USER}
       - BE_SERVER_ADDRESS=scenario_server
       - BE_SERVER_SSH_PORT=2222
     image: powersimdata:latest
@@ -33,7 +33,7 @@ services:
       - $PWD/ssh_github_action/id_rsa.pub:/pub_key/id_rsa.pub:ro # path to ssh public key
       - $PWD/server_files:/mnt/bes/pcm
     environment:
-      - USER_NAME=octocat
+      - USER_NAME=${BE_SERVER_USER}
       - PUBLIC_KEY_FILE=/pub_key/id_rsa.pub # ssh public key in container
       - SUDO_ACCESS=false
       - PASSWORD_ACCESS=false

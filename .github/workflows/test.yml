@@ -41,6 +41,8 @@ jobs:
       - run: docker build . -t scenario_server:latest
         working-directory: plug/scenario_framework
 
+      - run: export BE_SERVER_USER=octocat
+
       # - run: docker build . -t reisejl:latest
       #   working-directory: REISE.jl
 
