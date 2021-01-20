@@ -56,6 +56,6 @@ jobs:
         env: 
           BE_SERVER_USER: octocat
 
-      - run: docker exec scenario_client bash -c 'pytest -m "not db"'
-
-      - run: docker exec scenario_client bash -c 'ls -l /root/ScenarioData'
+      - run: |
+          docker exec scenario_server bash -c 'pytest -m "not db"'
+          docker exec scenario_server bash -c 'ls -l /root/ScenarioData'
