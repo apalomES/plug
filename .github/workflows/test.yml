@@ -51,6 +51,7 @@ jobs:
           docker-compose up -d
           sleep 10
           docker ps -a
+          docker exec scenario_server bash -c 'ls -l /mnt/bes/pcm/'
         working-directory: plug/scenario_framework
         env: 
           BE_SERVER_USER: octocat
