@@ -4,4 +4,5 @@ RUN apk update
 RUN apk add gawk
 
 COPY server_files /mnt/bes/pcm
+RUN mkdir /mnt/bes/pcm/tmp
 RUN chmod -R 777 /mnt/

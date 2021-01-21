@@ -8,6 +8,7 @@ def test_scenario_server_container_up():
     response = os.system("ping -c 1 " + hostname)
     assert response == 0
 
+@pytest.mark.skip(reason="we will add reisejl container later")
 def test_reise_jl_container_up():
     hostname = "reisejl"
     response = os.system("ping -c 1 " + hostname)
