@@ -77,8 +77,6 @@ def test_create_base_grid_Texas_scenario():
     scenario.state.print_scenario_status()
     scenario.print_scenario_info()
     scenario.state.prepare_simulation_input()
-    # launch simulation
-    process_run = scenario.state.launch_simulation()
 
     # Get simulation status
     scenario.state.print_scenario_status()
@@ -131,8 +129,6 @@ def test_create_and_upload_Texas_scenario():
     scenario.state.print_scenario_status()
     scenario.print_scenario_info()
     scenario.state.prepare_simulation_input()
-    # launch simulation
-    process_run = scenario.state.launch_simulation()
 
     # Get simulation status
     scenario.state.print_scenario_status()
