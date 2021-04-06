@@ -1,13 +1,17 @@
 # plug
 PortabLe infrastrUcture for Grid modeling
 
+### Prerequisites
+To use *plug* you'll need to have docker installed - visit their [website](https://docs.docker.com/get-docker/)
+for details.
 
-### How to use
-To run the containerized framework, the only prerequisite is to have a gurobi
-license called `gurobi.lic` in the `gurobi_license` folder as shown below. The required
-images will be downloaded automatically from our [container registry](https://github.com/orgs/Breakthrough-Energy/packages).
+If you want to run simulations using the Gurobi solver (recommended), you'll need a
+license file called `gurobi.lic` and located in the `gurobi_license` folder as shown below.
 
-Optionally, if you want to build any of the docker images locally (e.g. for development purposes),
+*NOTE*: certain license types are not supported at the moment. 
+
+
+**Optional**: if you want to build any of the docker images locally (e.g. for development purposes),
 you should use the following directory structure so relative paths will work.
 
 ```bash
@@ -18,9 +22,14 @@ you should use the following directory structure so relative paths will work.
     └── REISE.jl
 ```
 
+### How to use
+
 We describe the workflow for running a standalone installation on a single
 computer. To get started, run `cd standalone` in your shell, followed by
-`docker-compose up`. In a separate shell, attach to the powersimdata client using
+`docker-compose up`. The docker images will be downloaded automatically 
+from our [container registry](https://github.com/orgs/Breakthrough-Energy/packages).
+
+In a separate shell, attach to the powersimdata client using
 
 ```
 docker-compose exec powersimdata ipython
