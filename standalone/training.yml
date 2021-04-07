@@ -10,13 +10,11 @@ services:
     stdin_open: true # docker run -i
     tty: true        # docker run -t
     working_dir: /plug
-    entrypoint: bash
-    volumes:
-      - scenario_data:/mnt/bes/pcm
-      - ../rootdir/raw:/mnt/bes/pcm/raw
-      - ./:/plug
     ports:
       - "10000:10000"
+    volumes:
+      - ../${DATA_PKG}:/mnt/bes/pcm
+      - ./:/plug
     environment:
       - BE_SERVER_ADDRESS=reisejl
       - DEPLOYMENT_MODE=1
@@ -29,8 +27,5 @@ services:
     ports:
       - "80:5000"
     volumes:
-      - scenario_data:/mnt/bes/pcm
-      - ../rootdir/raw:/mnt/bes/pcm/raw
+      - ../${DATA_PKG}:/mnt/bes/pcm
       - ../gurobi_license:/usr/share/gurobi_license
-volumes:
-  scenario_data:

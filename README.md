@@ -19,6 +19,7 @@ you should use the following directory structure so relative paths will work.
     ├── plug
         ├── gurobi_license/gurobi.lic
     ├── PowerSimData
+    ├── PostREISE
     └── REISE.jl
 ```
 
@@ -26,14 +27,22 @@ you should use the following directory structure so relative paths will work.
 
 We describe the workflow for running a standalone installation on a single
 computer. To get started, run `cd standalone` in your shell, followed by
-`docker-compose up`. The docker images will be downloaded automatically 
+`docker-compose up` (optionally pass `-d` to run in the background). 
+The docker images will be downloaded automatically 
 from our [container registry](https://github.com/orgs/Breakthrough-Energy/packages).
 
-In a separate shell, attach to the powersimdata client using
+The `client` container contains both PowerSimData and PostREISE packages, for
+scenario management and analysis, respectively. The default compose file starts the
+client running `bash`, which serves as an entrypoint to either an `ipython` shell:
 
 ```
-docker-compose exec powersimdata ipython
+docker-compose exec client ipython
 ```
+ or a jupyter notebook:
+
+ ```
+docker-compose exec client jupyter lab --port=10000 --no-browser --ip=0.0.0.0 --allow-root
+ ```
 
 See the PowerSimData [readme](https://github.com/Breakthrough-Energy/PowerSimData) for details 
 about how to run a simulation, or try the commands in `demo.py` for a simple example.
