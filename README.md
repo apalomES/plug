@@ -31,7 +31,7 @@ computer. To get started, run `cd standalone` in your shell, followed by
 The docker images will be downloaded automatically 
 from our [container registry](https://github.com/orgs/Breakthrough-Energy/packages).
 
-The `client` container contains both PowerSimData and PostREISE packages, for
+The `client` container contains both [PowerSimData] and [PostREISE] packages, for
 scenario management and analysis, respectively. The default compose file starts the
 client running `bash`, which serves as an entrypoint to either an `ipython` shell:
 
@@ -40,11 +40,11 @@ docker-compose exec client ipython
 ```
  or a jupyter notebook:
 
- ```
+```
 docker-compose exec client jupyter lab --port=10000 --no-browser --ip=0.0.0.0 --allow-root
- ```
+```
 
-See the PowerSimData [readme](https://github.com/Breakthrough-Energy/PowerSimData) for details 
+See the PowerSimData [tutorial] for details 
 about how to run a simulation, or try the commands in `demo.py` for a simple example.
 
 The usage within the containerized setup is almost identical to what is
@@ -78,13 +78,13 @@ Currently, the simplest way to access simulation output is by copying the
 results from the container. To copy the full volume as-is, use the following:
 
 ```
-docker cp powersimdata:/mnt/bes/pcm DEST_FOLDER
+docker cp client:/mnt/bes/pcm DEST_FOLDER
 ```
 
 Optionally, to snapshot the results to a tar archive, run
 
 ```
-docker cp powersimdata:/mnt/bes/pcm - > FILENAME.tar
+docker cp client:/mnt/bes/pcm - > FILENAME.tar
 ```
 
 ### Client/server architecture
@@ -106,3 +106,7 @@ docker exec scenario_client bash -c 'pytest -m "not db"'
 
 In addition to the test suite from powersimdata, this will run the tests
 provided here, which demonstrate typical user workflows. 
+
+[PowerSimData]: https://github.com/Breakthrough-Energy/PowerSimData
+[PostREISE]: https://github.com/Breakthrough-Energy/PostREISE
+[tutorial]: https://breakthrough-energy.github.io/docs/powersimdata/index.html
