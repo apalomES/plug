@@ -23,6 +23,10 @@ you should use the following directory structure so relative paths will work.
     └── REISE.jl
 ```
 
+<p align="center">
+  <img width="800" src="demo.svg">
+</p>
+
 ### How to use
 
 We describe the workflow for running a standalone installation on a single
